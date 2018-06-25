@@ -1,18 +1,16 @@
 <?php
 
-use Illuminate\Http\Request;
+// use the post method
+// when the use request /articles - don't need the forward slash
+// which will call the store method of the Articles controller
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// we can group all our articles routes together
+$router->group(["prefix" => "articles"], function ($router) {
+    $router->post("", "Articles@store");
+    $router->get("", "Articles@index");
+    // {article} is a url parameter representing the id we want
+    $router->get("{article}", "Articles@show");
+    $router->put("{article}", "Articles@update");
+    $router->delete("{article}", "Articles@destroy");
 });
