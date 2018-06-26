@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 // make sure you add this near the top, undereath the namespace declaration
 use App\Article;
+use App\Tag;
 
 use App\Http\Resources\ArticleResource;
 use App\Http\Resources\ArticleListResource;
@@ -34,9 +35,11 @@ class Articles extends Controller
   {
     // get post request data for title and article
     $data = $request->only(["title", "article"]);
-
     // create article with data and store in DB
     $article = Article::create($data);
+
+    $tags = Tag::parse($request->get("tags"));
+    $article->setTags($tags);
 
     return new ArticleResource($article);
   }
@@ -64,9 +67,11 @@ class Articles extends Controller
   {
     // get the request data
     $data = $request->only(["title", "article"]);
-
     // update the article
     $article->fill($data)->save();
+
+    $tags = Tag::parse($request->get("tags"));
+    $article->setTags($tags);
 
     return new ArticleResource($article);
   }

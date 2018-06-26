@@ -15,4 +15,7 @@ $router->group(["prefix" => "articles"], function ($router) {
   $router->delete("{article}", "Articles@destroy");
   $router->post("{article}/comments", "Comments@store");
   $router->get("{article}/comments", "Comments@index");
+  $router->get("{article}/tags", "Tags@show");
 });
+
+$router->get("tags", "Tags@index"); // gets all the tags

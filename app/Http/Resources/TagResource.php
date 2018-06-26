@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ArticleListResource extends JsonResource
+class TagResource extends JsonResource
 {
   /**
    * Transform the resource into an array.
@@ -14,12 +14,10 @@ class ArticleListResource extends JsonResource
    */
   public function toArray($request)
   {
+    // make sure tags are up to date
     $this->resource->load("tags");
 
     return [
-      "id" => $this->id,
-      "title" => $this->title,
-      "tags" => $this->tags->pluck("name"), // just return a list of tag names
-    ];
-  }
+      "name" => $this->name
+    ]; // this doesnt work for individual articles only for all the articles
 }

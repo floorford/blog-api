@@ -14,12 +14,17 @@ class ArticleResource extends JsonResource
    */
   public function toArray($request)
   {
+
+    // make sure tags are up to date
+    $this->resource->load("tags");
+
     // just show the id, title, and article properties
     // $this represents the current article
     return [
       "id" => $this->id,
       "title" => $this->title,
       "article" => $this->article,
+      "tags" => $this->tags->pluck("name"), // just return a list of tag names
     ];
   }
 }
