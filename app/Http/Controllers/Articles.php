@@ -8,7 +8,7 @@ use App\Article;
 use App\Http\Resources\ArticleResource;
 use App\Http\Resources\ArticleListResource;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\ArticleRequest;
 
 class Articles extends Controller
 {
@@ -30,7 +30,7 @@ class Articles extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function store(Request $request)
+  public function store(ArticleRequest $request)
   {
     // get post request data for title and article
     $data = $request->only(["title", "article"]);
@@ -60,7 +60,7 @@ class Articles extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, Article $article)
+  public function update(ArticleRequest $request, Article $article)
   {
     // get the request data
     $data = $request->only(["title", "article"]);
